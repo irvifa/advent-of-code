@@ -24,14 +24,10 @@ jobs:
 
     - name: Check code formatting
       run: |
-        cargo fmt --all -- --check --skip-untracked
-        cd advent-of-code/2024
         cargo fmt -- --check
-      working-directory: ./advent-of-code/2024
+      working-directory: ./2024
 
     - name: Run cargo test
       run: |
-        cargo test --all
-        cd advent-of-code/2024
         cargo test
-      working-directory: ./advent-of-code/2024
+      working-directory: ./2024
