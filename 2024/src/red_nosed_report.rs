@@ -1,4 +1,4 @@
-use std::env;
+use crate::utils::Args;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
@@ -41,15 +41,8 @@ fn read_reports_from_file(filename: &str) -> Vec<Vec<i32>> {
 }
 
 pub fn run() {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        eprintln!("Usage: {} <input file>", args[0]);
-        std::process::exit(1);
-    }
-
-    let file_path = &args[1];
-
-    let reports = read_reports_from_file(file_path);
+    let args = Args::parse();
+    let reports = read_reports_from_file(&args.file_path);
     let safe_reports_count = count_safe_reports(&reports);
 
     println!("Number of safe reports: {}", safe_reports_count);
