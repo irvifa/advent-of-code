@@ -1,0 +1,37 @@
+name: Rust CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        components: rustfmt
+
+    - name: Check code formatting
+      run: |
+        cargo fmt --all -- --check --skip-untracked
+        cd advent-of-code/2024
+        cargo fmt -- --check
+      working-directory: ./advent-of-code/2024
+
+    - name: Run cargo test
+      run: |
+        cargo test --all
+        cd advent-of-code/2024
+        cargo test
+      working-directory: ./advent-of-code/2024

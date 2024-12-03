@@ -3,5 +3,5 @@ mod red_nosed_report;
 mod utils;
 
 fn main() {
-    historian::run();
+    red_nosed_report::run_part2();
 }
