@@ -1,3 +1,4 @@
+mod bridge_repair;
 mod ceres_search;
 mod guard_gallivant;
 mod historian;
@@ -7,5 +8,5 @@ mod red_nosed_report;
 mod utils;
 
 fn main() {
-    guard_gallivant::run_part2();
+    bridge_repair::run_part1();
 }
