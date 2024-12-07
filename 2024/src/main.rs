@@ -8,5 +8,5 @@ mod red_nosed_report;
 mod utils;
 
 fn main() {
-    bridge_repair::run_part1();
+    bridge_repair::run_part2();
 }
