@@ -9,5 +9,5 @@ mod resonant_collinearity;
 mod utils;
 
 fn main() {
-    resonant_collinearity::run_part1();
+    resonant_collinearity::run_part2();
 }

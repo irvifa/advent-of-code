@@ -95,6 +95,81 @@ pub fn run_part1() {
     println!("Part 1: {}", result);
 }
 
+fn gcd(a: isize, b: isize) -> isize {
+    if b == 0 {
+        a.abs()
+    } else {
+        gcd(b, a % b)
+    }
+}
+
+fn find_antinodes_part2(
+    antenna_map: &HashMap<char, Vec<(usize, usize)>>,
+    grid_width: usize,
+    grid_height: usize,
+) -> HashSet<(usize, usize)> {
+    let mut antinodes = HashSet::new();
+
+    for (_, positions) in antenna_map.iter() {
+        let n = positions.len();
+        if n == 1 {
+            // Add singleton antennas
+            antinodes.insert(positions[0]);
+            continue;
+        }
+
+        for i in 0..n {
+            for j in (i + 1)..n {
+                let (x1, y1) = positions[i];
+                let (x2, y2) = positions[j];
+
+                // Calculate direction vector and normalize using GCD
+                let dx = x2 as isize - x1 as isize;
+                let dy = y2 as isize - y1 as isize;
+                let divisor = gcd(dx, dy);
+                let step_x = dx / divisor;
+                let step_y = dy / divisor;
+
+                // Check positions along the line segment (both directions)
+                let mut x = x1 as isize;
+                let mut y = y1 as isize;
+                while x >= 0 && x < grid_width as isize && y >= 0 && y < grid_height as isize {
+                    antinodes.insert((x as usize, y as usize));
+                    x -= step_x;
+                    y -= step_y;
+                }
+
+                x = x1 as isize + step_x;
+                y = y1 as isize + step_y;
+                while x >= 0 && x < grid_width as isize && y >= 0 && y < grid_height as isize {
+                    antinodes.insert((x as usize, y as usize));
+                    x += step_x;
+                    y += step_y;
+                }
+            }
+
+            // Add all antennas themselves as antinodes
+            antinodes.insert(positions[i]);
+        }
+    }
+
+    antinodes
+}
+
+pub fn get_signal_impact_part2(file_path: &str) -> usize {
+    let input = fs::read_to_string(file_path).expect("Unable to read file");
+    let (antenna_map, grid_width, grid_height) = parse_antenna_map(&input);
+    let antinodes = find_antinodes_part2(&antenna_map, grid_width, grid_height);
+
+    antinodes.len()
+}
+
+pub fn run_part2() {
+    let args = Args::parse();
+    let result = get_signal_impact_part2(&args.file_path);
+    println!("Part 2: {}", result);
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -103,5 +178,11 @@ mod tests {
     fn test_get_signal_impact() {
         let result = get_signal_impact("input/8-resonant-collinearity/test-input-1.txt");
         assert_eq!(result, 14);
+    }
+
+    #[test]
+    fn test_get_signal_impact_part2() {
+        let result = get_signal_impact_part2("input/8-resonant-collinearity/test-input-2.txt");
+        assert_eq!(result, 34);
     }
 }
