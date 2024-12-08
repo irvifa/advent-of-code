@@ -81,44 +81,44 @@ fn evaluate_equation_part2(nums: &[i64], ops: &[char]) -> i64 {
 
 fn solve_equation_part2(test_value: i64, nums: &[i64]) -> Option<Vec<char>> {
     let num_ops = nums.len() - 1;
-    
+
     // Generate all possible operator combinations (now including ||)
     for i in 0..(3_u32.pow(num_ops as u32)) {
         let mut ops = Vec::new();
         let mut current_combo = i;
-        
+
         // Generate operators for this combination
         for _ in 0..num_ops {
             let op = match current_combo % 3 {
                 0 => '+',
                 1 => '*',
                 2 => '|',
-                _ => unreachable!()
+                _ => unreachable!(),
             };
             ops.push(op);
             current_combo /= 3;
         }
-        
+
         // Check if this combination works
         let result = evaluate_equation_part2(nums, &ops);
         if result == test_value {
             return Some(ops);
         }
     }
-    
+
     None
 }
 
 fn solve_calibrations_part2(input_path: &str) -> i64 {
     let input = fs::read_to_string(input_path).expect("Could not read file");
-    input.lines()
+    input
+        .lines()
         .filter_map(|line| {
             let (test_value, nums) = parse_line(line);
-            solve_equation_part2(test_value, &nums)
-                .map(|_| test_value)
+            solve_equation_part2(test_value, &nums).map(|_| test_value)
         })
         .sum()
-    }
+}
 
 pub fn run_part1() {
     let args = Args::parse();

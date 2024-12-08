@@ -5,8 +5,9 @@ mod historian;
 mod mull_it_over;
 mod queue_order_verification;
 mod red_nosed_report;
+mod resonant_collinearity;
 mod utils;
 
 fn main() {
-    bridge_repair::run_part2();
+    resonant_collinearity::run_part1();
 }
