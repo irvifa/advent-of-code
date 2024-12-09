@@ -10,5 +10,5 @@ mod resonant_collinearity;
 mod utils;
 
 fn main() {
-    disk_fragmentation::run_part1();
+    disk_fragmentation::run_part2();
 }
