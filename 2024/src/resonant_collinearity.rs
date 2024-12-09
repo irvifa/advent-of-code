@@ -19,7 +19,6 @@ fn parse_antenna_map(input: &str) -> (HashMap<char, Vec<(usize, usize)>>, usize,
     (antenna_map, grid_width, grid_height)
 }
 
-
 /// Finds GCD of two numbers (used for normalizing direction vectors).
 fn gcd(a: isize, b: isize) -> isize {
     if b == 0 {
@@ -139,13 +138,19 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let result = get_signal_impact("input/8-resonant-collinearity/test-input-1.txt", find_antinodes_part1);
+        let result = get_signal_impact(
+            "input/8-resonant-collinearity/test-input-1.txt",
+            find_antinodes_part1,
+        );
         assert_eq!(result, 14);
     }
 
     #[test]
     fn test_part2() {
-        let result = get_signal_impact("input/8-resonant-collinearity/test-input-2.txt", find_antinodes_part2);
+        let result = get_signal_impact(
+            "input/8-resonant-collinearity/test-input-2.txt",
+            find_antinodes_part2,
+        );
         assert_eq!(result, 34);
     }
 }
