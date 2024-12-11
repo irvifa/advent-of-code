@@ -5,11 +5,12 @@ mod guard_gallivant;
 mod historian;
 mod hoof_it;
 mod mull_it_over;
+mod plutonian_pebbles;
 mod queue_order_verification;
 mod red_nosed_report;
 mod resonant_collinearity;
 mod utils;
 
 fn main() {
-    hoof_it::run_part2();
+    plutonian_pebbles::run_part1();
 }
