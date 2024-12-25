@@ -129,7 +129,7 @@ mod tests {
         // Run the solution
         let result = run(
             PuzzlePart::Part1,
-            "input/13-claw-contraption/test-input1.txt",
+            "input/13-claw-contraption/test-input-1.txt",
         );
 
         // According to the puzzle description:

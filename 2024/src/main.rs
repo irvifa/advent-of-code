@@ -10,8 +10,9 @@ mod plutonian_pebbles;
 mod queue_order_verification;
 mod red_nosed_report;
 mod resonant_collinearity;
+mod restroom_redoubt;
 mod utils;
 
 fn main() {
-    claw_contraption::run_part1();
+    restroom_redoubt::run_part1();
 }
